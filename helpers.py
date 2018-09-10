@@ -79,7 +79,7 @@ def enforce_permissions():
         raise Exception('Must be run as root!')
 
 def distro_install(pkg_name, update_before=False):
-    return f'apt update && apt install {pkg_name}'
+    return f'apt update && apt install -y {pkg_name}'
 
 def get_downloadables(files):
     all_remotes = [ ((f.host, f.port, f.username), (f.remote_path, f.local_path)) for f in files ]

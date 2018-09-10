@@ -8,6 +8,13 @@ from helpers import *
 fgetter = FileGetter()
 to_install = [
     Installable(
+        'common_packages',
+        [
+            distro_install('docker'),
+        ],
+        []
+    ),
+    Installable(
         'general_config',
         [],
         [ Setuper(f'{local_home}/.config', f'{remote_root}/.config', recursive=True) ]
@@ -48,6 +55,21 @@ to_install = [
             distro_install('i3'),
         ],
         [ Setuper(f'{local_home}/.screenlayout', f'{remote_root}/.screenlayout', recursive=True) ]
+    ),
+    Installable(
+        'nodejs',
+        [
+            'curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -',
+            distro_install('nodejs')
+        ],
+        []
+    ),
+    Installable(
+        'code',
+        [
+            'curl -sL https://go.microsoft.com/fwlink/?LinkID=760868 | sudo dpkg -i -'
+        ],
+        []
     )
 ]
 
