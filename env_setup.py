@@ -10,6 +10,8 @@ to_install = [
     Installable(
         'common_packages',
         [
+            distro_install('git'),
+            distro_install('build-essential')
             distro_install('docker'),
         ],
         []
@@ -53,6 +55,7 @@ to_install = [
         'i3',
         [
             distro_install('i3'),
+            distro_install('nitrogen')
         ],
         [ Setuper(f'{local_home}/.screenlayout', f'{remote_root}/.screenlayout', recursive=True) ]
     ),
@@ -70,6 +73,18 @@ to_install = [
             'curl -sL https://go.microsoft.com/fwlink/?LinkID=760868 | sudo dpkg -i -'
         ],
         []
+    ),
+    Installable(
+        'chrome',
+        [ f'dpkg -i {tmp_dir}/google-chrome.deb' ],
+        [ Setuper(f'{tmp_dir}/google-chrome.deb', f'{remote_root}/google-chrome-stable_current_amd64.deb', get_first=True) ]
+    ),
+    Installable(
+        'flutter',
+        [
+            f'curl -o {local_home}/flutter.zip https://github.com/flutter/flutter/archive/master.zip',
+            f'unzip {local_home}/flutter.zip'
+        ]
     )
 ]
 
