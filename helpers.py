@@ -46,6 +46,10 @@ class Setuper:
         self.is_script = is_script
 
     @property
+    def isRemote(self):
+        return len(self.remote.split('@')) > 1 or len(self.remote.split('://')) > 1
+
+    @property
     def host(self):
         return self.remote.split('@', 1)[-1].split(':', 1)[0]
 
@@ -82,7 +86,7 @@ def distro_install(pkg_name, update_before=False):
     return f'apt update && apt install -y {pkg_name}'
 
 def get_downloadables(files):
-    all_remotes = [ ((f.host, f.port, f.username), (f.remote_path, f.local_path)) for f in files ]
+    all_remotes = [ ((f.host, f.port, f.username), (f.remote_path, f.local_path)) for f in [ fi for fi in files if fi.isRemote ] ]
     return [ (*r, [ ar[1] for ar in all_remotes if ar[0] == r ]) for r in set([ a[0] for a in all_remotes ]) ]
 
 def download_before(installables):

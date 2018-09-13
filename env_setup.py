@@ -11,15 +11,21 @@ to_install = [
         'common_packages',
         [
             distro_install('git'),
-            distro_install('build-essential')
+            distro_install('build-essential'),
             distro_install('docker'),
+            distro_install('xclip')
+            distro_install('python3-pip'),
+            distro_install('curl')
         ],
         []
     ),
     Installable(
         'general_config',
         [],
-        [ Setuper(f'{local_home}/.config', f'{remote_root}/.config', recursive=True) ]
+        [
+            Setuper(f'{local_home}/.config', f'{remote_root}/.config', recursive=True),
+            Setuper(f'{local_home}/.ssh', f'{remote_root}/.ssh', recursive=True)
+        ]
     ),
     Installable(
         'zsh',
@@ -31,8 +37,14 @@ to_install = [
         ],
         [
             Setuper(f'{local_home}/.zshrc', f'{remote_root}/.zshrc'),
-            Setuper(f'{tmp_dir}/install_fonts.sh', f'{remote_root}/install_fonts.sh')
+            Setuper(f'{local_home}/.zsh_aliases', f'{remote_root}/.zsh_aliases')
+            # Setuper(f'{tmp_dir}/install_fonts.sh', f'{remote_root}/install_fonts.sh')
         ]
+    ),
+    Installable(
+        'tmux',
+        [ distro_install('tmux') ],
+        [ Setuper(f'{local_home}/.tmux.conf', f'{remote_root}/.tmux.conf') ]
     ),
     Installable(
         'nvim',
@@ -84,7 +96,8 @@ to_install = [
         [
             f'curl -o {local_home}/flutter.zip https://github.com/flutter/flutter/archive/master.zip',
             f'unzip {local_home}/flutter.zip'
-        ]
+        ],
+        []
     )
 ]
 
@@ -99,7 +112,7 @@ def main():
             if debug_mode:
                 print(cmd)
             else:
-                sp.check_call(cmd.split(' '))
+                sp.Popen(cmd.split(), stdout=sp.PIPE)
     for (host, port, uname, files) in download_after(to_install):
         fgetter.connect(host, port, uname)
         fgetter.get(files)
