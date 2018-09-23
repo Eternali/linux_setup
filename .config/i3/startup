@@ -1,0 +1,4 @@
+#!/bin/sh
+
+~/.screenlayout/equibit03.sh
+nitrogen --set-scaled --random /home/eternali/Pictures/backgrounds
