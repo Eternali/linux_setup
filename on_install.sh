@@ -8,6 +8,9 @@ add-apt-repository \
    stable"
 apt update
 apt install -y docker-ce
+groupadd docker
+usermod -aG docker $1
+su - $1
 cp -r * ~/
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 git clone https://github.com/bhilburn/powerlevel9k.git {local_home}/.oh-my-zsh/custom/themes/powerlevel9k
