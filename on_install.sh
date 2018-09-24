@@ -1,17 +1,24 @@
 #!/bin/zsh
 
-apt install git build-essential docker xclip python3-pip curl zsh tmux i3 nitrogen
+apt install -y git build-essential xclip python3-pip curl zsh tmux i3 nitrogen apt-transport-https
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
+apt update
+apt install -y docker-ce
 cp -r * ~/
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 git clone https://github.com/bhilburn/powerlevel9k.git {local_home}/.oh-my-zsh/custom/themes/powerlevel9k
-curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
-apt install neovim yarn nodejs
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+curl -sL https://deb.nodesource.com/setup_10.x | -E bash -
+apt install -y neovim yarn nodejs
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \\
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-apt install arandr i3blocks pm-utils xbacklight blueman mongodb xautolock
-apt install -f
+apt install -y arandr i3blocks pm-utils xbacklight blueman mongodb xautolock
+apt install -f -y
 cd ~/Downloads
 dpkg -i google-chrome-stable_current_amd64.deb
 dpkg -i skypeforlinux-64.deb
@@ -32,8 +39,8 @@ mkdir ~/VueProjects
 cd ~/VueProjects
 git clone https://github.com/eternali/conradheidebrecht.com
 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90
-echo deb http://repository.spotify.com stable non-free | sudo tee /etc/apt/sources.list.d/spotify.list
-apt install spotify-client
+echo deb http://repository.spotify.com stable non-free | tee /etc/apt/sources.list.d/spotify.list
+apt install -y spotify-client
 git config --global user.email "conrad.heidebrecht@gmail.com"
 git config --global user.name "Conrad"
 cd ~/Downloads
