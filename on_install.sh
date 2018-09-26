@@ -20,7 +20,7 @@ curl -sL https://deb.nodesource.com/setup_10.x | -E bash -
 apt install -y neovim yarn nodejs
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \\
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-apt install -y arandr i3blocks pm-utils xbacklight blueman mongodb xautolock
+apt install -y arandr i3blocks pm-utils xbacklight blueman mongodb xautolock fonts-firacode
 apt install -f -y
 cd ~/Downloads
 dpkg -i google-chrome-stable_current_amd64.deb
