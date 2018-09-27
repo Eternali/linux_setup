@@ -36,6 +36,9 @@ curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \\
 sudo apt install -y arandr i3blocks pm-utils xbacklight blueman mongodb xautolock fonts-firacode
 sudo apt install -f -y
 
+mkdir -p $HOMEDIR/.fonts
+cp $CURDIR/.fonts/* $HOMEDIR/.fonts/
+
 ln -s $CURDIR/.config/nvim/init.vim $HOMEDIR/.config/nvim/init.vim
 ln -s $CURDIR/.config/nvim/colors $HOMEDIR/.config/nvim/colors
 ln -s $CURDIR/.zshrc $HOMEDIR/.zshrc
