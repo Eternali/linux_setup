@@ -30,7 +30,7 @@ usermod -aG docker $1
 su - $1
 cp -r * ~/
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-git clone https://github.com/bhilburn/powerlevel9k.git {local_home}/.oh-my-zsh/custom/themes/powerlevel9k
+git clone https://github.com/bhilburn/powerlevel9k.git $HOMEDIR/.oh-my-zsh/custom/themes/powerlevel9k
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 curl -sL https://deb.nodesource.com/setup_10.x | -E bash -
