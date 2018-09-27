@@ -8,14 +8,15 @@ rm $HOMEDIR/.tmux.conf
 rm -rf $HOMEDIR/.config/i3
 rm -r $HOMEDIR/.screenlayout
 rm -r $HOMEDIR/.config/nvim
-mkdir -p $HOMEDIR/.config/nvim
+mkdir -p $HOMEDIR/.config/nvim/plugged
 ln -s $CURDIR/.config/nvim/init.vim $HOMEDIR/.config/nvim/init.vim
 ln -s $CURDIR/.config/nvim/colors $HOMEDIR/.config/nvim/colors
 ln -s $CURDIR/.zshrc $HOMEDIR/.zshrc
 ln -s $CURDIR/.zsh_aliases $HOMEDIR/.zsh_aliases
 ln -s $CURDIR/.tmux.conf $HOMEDIR/.tmux.conf
-ln -s $CURDIR/.config/i3 $HOMEDIR/.config/i3
 ln -s $CURDIR/.screenlayout $HOMEDIR/.screenlayout
+ln -s $CURDIR/.config/i3/config $HOMEDIR/.config/i3/config
+ln -s $CURDIR/.config/i3/startup $HOMEDIR/.config/i3/startup
 
 apt install -y git build-essential xclip python3-pip curl zsh tmux i3 nitrogen apt-transport-https
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
@@ -28,7 +29,6 @@ apt install -y docker-ce
 groupadd docker
 usermod -aG docker $1
 su - $1
-cp -r * ~/
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 git clone https://github.com/bhilburn/powerlevel9k.git $HOMEDIR/.oh-my-zsh/custom/themes/powerlevel9k
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
