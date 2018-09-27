@@ -1,5 +1,22 @@
 #!/bin/zsh
 
+HOMEDIR='/home/'$1
+CURDIR=`pwd`
+rm $HOMEDIR/.zshrc
+rm $HOMEDIR/.zsh_aliases
+rm $HOMEDIR/.tmux.conf
+rm -rf $HOMEDIR/.config/i3
+rm -r $HOMEDIR/.screenlayout
+rm -r $HOMEDIR/.config/nvim
+mkdir -p $HOMEDIR/.config/nvim
+ln -s $CURDIR/.config/nvim/init.vim $HOMEDIR/.config/nvim/init.vim
+ln -s $CURDIR/.config/nvim/colors $HOMEDIR/.config/nvim/colors
+ln -s $CURDIR/.zshrc $HOMEDIR/.zshrc
+ln -s $CURDIR/.zsh_aliases $HOMEDIR/.zsh_aliases
+ln -s $CURDIR/.tmux.conf $HOMEDIR/.tmux.conf
+ln -s $CURDIR/.config/i3 $HOMEDIR/.config/i3
+ln -s $CURDIR/.screenlayout $HOMEDIR/.screenlayout
+
 apt install -y git build-essential xclip python3-pip curl zsh tmux i3 nitrogen apt-transport-https
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
 add-apt-repository \

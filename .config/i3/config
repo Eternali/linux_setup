@@ -193,6 +193,16 @@ bindsym $mod+Pause mode "$mode_system"
 
 bindsym $mod+Ctrl+l exec /home/eternali/.config/i3/i3lock-fancy-multimonitor/lock -b=0x4
 
+#----window coloring----#
+# class                 border  backgr. text    indicator child_border
+client.focused          #edccff #8500ce #ffffff #8f29c6   #8500ce
+client.focused_inactive #745b87 #392b3f #ffffff #484e50   #5f676a
+client.unfocused        #341b47 #181619 #888888 #292d2e   #222222
+client.urgent           #000000 #fff600 #000000 #fff600   #000000
+client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
+
+client.background       #ffffff
+
 #----start on i3 initialization----#
 
 # i3 lock fancy and xautolock for screen locking
