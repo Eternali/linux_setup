@@ -2,4 +2,4 @@
 
 ~/.screenlayout/equibit05.sh
 nitrogen --set-scaled --random /home/eternali/Pictures/backgrounds
-python3 touchpad.py
+./touchpad.py
