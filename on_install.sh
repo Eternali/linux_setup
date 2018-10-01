@@ -11,7 +11,6 @@ rm $HOMEDIR/.tmux.conf
 rm -rf $HOMEDIR/.config/i3
 rm -r $HOMEDIR/.screenlayout
 rm -r $HOMEDIR/.config/nvim
-mkdir -p $HOMEDIR/.config/nvim/plugged
 mkdir -p $HOMEDIR/.config/i3
 
 sudo apt install -y git build-essential xclip python3-pip curl zsh tmux i3 nitrogen apt-transport-https
@@ -31,8 +30,6 @@ curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
 sudo apt install -y neovim yarn nodejs
-curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \\
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 sudo apt install -y arandr i3blocks pm-utils xbacklight blueman mongodb xautolock fonts-firacode
 sudo apt install -f -y
 
