@@ -1,0 +1,36 @@
+alias autoup='sudo apt update && sudo apt upgrade && sudo apt dist-upgrade && sudo apt autoremove'
+alias nvi='nvim'
+
+port_forwarding() {
+    ssh -p 68 -nNTR 4523:localhost:4523 conrad@abitsbrain.com &
+}
+
+lc() {
+    total=0
+    find $1 -type f | while read -r line
+    do
+        tmp="$(wc -l $line | grep -oE '[0-9]+')"
+        total=$((total+tmp))
+    done
+    echo $total
+}
+
+pusher() {
+    git add --all
+    git commit -m $1
+    git push $2 $3
+}
+
+fr() {
+    find $1 -type f -exec sed -i 's/'$2'/'$3'/g' {} \;
+}
+
+brightness() {
+    current=`cat /sys/class/backlight/intel_backlight/brightness`
+    sudo echo $((current+$1)) > /sys/class/backlight/intel_backlight/brightness
+}
+
+tmute() {
+    amixer -c 0 sset $1 toggle
+}
+
