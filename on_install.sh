@@ -13,7 +13,7 @@ rm -r $HOMEDIR/.screenlayout
 rm -r $HOMEDIR/.config/nvim
 mkdir -p $HOMEDIR/.config/i3
 
-sudo apt install -y git build-essential xclip python3-pip curl zsh tmux i3 nitrogen apt-transport-https
+sudo apt install -y git build-essential xclip python3-pip curl zsh tmux i3 nitrogen apt-transport-https whois
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 sudo add-apt-repository \
    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
