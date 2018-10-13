@@ -6,6 +6,9 @@ export ZSH=/home/eternali/.oh-my-zsh
 
 source ~/.fonts/*.sh
 
+# XDG config (for rofi)
+XDG_USER_CONFIG_DIR=/home/eternali/.config
+
 # Path to flutter sdk
 export PATH=/home/eternali/applications/flutter/bin:$PATH
 # Path to dart sdk

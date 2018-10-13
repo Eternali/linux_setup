@@ -11,9 +11,12 @@ rm $HOMEDIR/.tmux.conf
 rm -rf $HOMEDIR/.config/i3
 rm -r $HOMEDIR/.screenlayout
 rm -r $HOMEDIR/.config/nvim
+rm -r $HOMEDIR/.config/rofi
 mkdir -p $HOMEDIR/.config/i3
+mkdir $HOMEDIR/.config/nvim
+mkdir $HOMEDIR/.config/rofi
 
-sudo apt install -y git build-essential xclip python3-pip curl zsh tmux i3 nitrogen apt-transport-https whois
+sudo apt install -y git build-essential xclip python3-pip curl zsh tmux i3 nitrogen apt-transport-https whois rofi
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 sudo add-apt-repository \
    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
@@ -44,6 +47,7 @@ ln -s $CURDIR/.tmux.conf $HOMEDIR/.tmux.conf
 ln -s $CURDIR/.screenlayout $HOMEDIR/.screenlayout
 ln -s $CURDIR/.config/i3/config $HOMEDIR/.config/i3/config
 ln -s $CURDIR/.config/i3/startup $HOMEDIR/.config/i3/startup
+cp $CURDIR/.config/rofi/config $HOMEDIR/.config/rofi/config
 
 cd ~/Downloads
 sudo dpkg -i google-chrome-stable_current_amd64.deb
