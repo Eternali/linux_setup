@@ -35,7 +35,7 @@ curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
 sudo apt install -y neovim yarn nodejs
 sudo apt install -y arandr i3blocks pm-utils xbacklight blueman mongodb xautolock fonts-firacode
 sudo apt install -f -y
-sudo npm i -g typescript standard @vue/cli eslint
+sudo npm i -g typescript typings standard @vue/cli eslint
 
 mkdir -p $HOMEDIR/.fonts
 cp $CURDIR/.fonts/* $HOMEDIR/.fonts/
