@@ -16,7 +16,7 @@ mkdir -p $HOMEDIR/.config/i3
 mkdir $HOMEDIR/.config/nvim
 mkdir $HOMEDIR/.config/rofi
 
-sudo apt install -y git build-essential xclip python3-pip curl zsh tmux i3 nitrogen apt-transport-https whois rofi
+sudo apt install -y git build-essential xclip python3-pip curl zsh tmux i3 nitrogen apt-transport-https whois rofi screenfetch
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 sudo add-apt-repository \
    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
