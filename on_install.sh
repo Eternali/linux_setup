@@ -79,6 +79,7 @@ cd ~/Downloads
 git clone https://github.com/guimeira/i3lock-fancy-multimonitor.git
 cp -r i3lock-fancy-multimonitor ~/.config/i3
 chmod +x ~/.config/i3/i3lock-fancy-multimonitor/lock
-
-
+curl -s https://updates.signal.org/desktop/apt/keys.asc | sudo apt-key add -
+echo "deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main" | sudo tee -a /etc/apt/sources.list.d/signal-xenial.list
+sudo apt update && sudo apt install signal-desktop
 
