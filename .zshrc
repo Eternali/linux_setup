@@ -21,17 +21,17 @@ export PATH=/opt/depot_tools:$PATH
 # open JDK
 export PATH=/usr/lib/jvm/java-8-openjdk/bin:$PATH
 
-# Set name of the theme to load. Optionally, if you set this to "random"
-# it'll load a random theme each time that oh-my-zsh is loaded.
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="powerlevel9k/powerlevel9k"
-ZLE_RPROMPT_INDENT=0
-
 # Powerlevel9K config
 POWERLEVEL9K_MODE='awesome-fontconfig'
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(load dir dir_writable vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status battery root_indicator background_jobs time)
 POWERLEVEL9K_PROMPT_ON_NEWLINE=true
+
+# Set name of the theme to load. Optionally, if you set this to "random"
+# it'll load a random theme each time that oh-my-zsh is loaded.
+# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+ZSH_THEME="powerlevel9k/powerlevel9k"
+ZLE_RPROMPT_INDENT=0
 
 # ------------------------- skywind2000 zsh config
 
