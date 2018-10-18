@@ -33,7 +33,7 @@ curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
 sudo apt install -y neovim yarn nodejs
-sudo apt install -y arandr i3blocks pm-utils xbacklight blueman mongodb xautolock fonts-firacode
+sudo apt install -y arandr i3blocks pm-utils xbacklight blueman mongodb xautolock fonts-firacode scratchpad
 sudo apt install -f -y
 sudo npm i -g typescript typings standard @vue/cli eslint
 
