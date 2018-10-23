@@ -39,7 +39,9 @@ sudo apt install -y
     libcairo2-dev \
     libxcb-xkb-dev \
     libxcb-xinerama0-dev \
-    libxcb-randr0-dev
+    libxcb-randr0-dev \
+    libxinerama-dev \
+    libxft-dev
 
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 sudo add-apt-repository \
@@ -86,6 +88,8 @@ cd ~/applications
 git clone https://github.com/flutter/flutter.git -b beta
 . ~/.zshrc
 flutter doctor
+git clone https://github.com/sbstnc/dmenu-ee
+sudo make clean install
 #git clone https://github.com/emgram769/lighthouse
 #cd lighthouse
 #make
@@ -121,6 +125,5 @@ sudo snap install kotlin --classic
 # pip
 sudo pip3 install neovim
 
-# lighthouse
-sudo apt install libpth-dev libx11-dev libx11-xcb-dev libcairo2-dev libxcb-xkb-dev libxcb-xinerama0-dev libxcb-randr0-dev
-git clone 
+sudo mv /usr/bin/dmenu /usr/bin/dmenu_bak
+sudo ln -s /usr/local/bin/dmenu /usr/bin/dmenu
