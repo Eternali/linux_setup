@@ -21,6 +21,9 @@ export PATH=/opt/depot_tools:$PATH
 # open JDK
 export PATH=/usr/lib/jvm/java-8-openjdk/bin:$PATH
 
+# scripts
+export PATH=/home/eternali/bin:$PATH
+
 # Powerlevel9K config
 POWERLEVEL9K_MODE='awesome-fontconfig'
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(load dir dir_writable vcs)

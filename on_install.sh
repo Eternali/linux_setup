@@ -12,6 +12,7 @@ rm -rf $HOMEDIR/.config/i3
 rm -r $HOMEDIR/.screenlayout
 rm -r $HOMEDIR/.config/nvim
 rm -r $HOMEDIR/.config/rofi
+rm -r $HOMEDIR/.config/i3blocks
 mkdir -p $HOMEDIR/.config/i3
 mkdir $HOMEDIR/.config/nvim
 mkdir $HOMEDIR/.config/rofi
@@ -48,6 +49,7 @@ ln -s $CURDIR/.tmux.conf $HOMEDIR/.tmux.conf
 ln -s $CURDIR/.screenlayout $HOMEDIR/.screenlayout
 ln -s $CURDIR/.config/i3/config $HOMEDIR/.config/i3/config
 ln -s $CURDIR/.config/i3/startup $HOMEDIR/.config/i3/startup
+ln -s $CURDIR/.config/i3blocks $HOMEDIR/.config/i3blocks
 cp $CURDIR/.config/rofi/config $HOMEDIR/.config/rofi/config
 
 cd ~/Downloads
@@ -84,3 +86,6 @@ echo "deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main" | sud
 sudo apt update && sudo apt install signal-desktop
 sudo apt install snapd snapd-xdg-open
 sudo snap install kotlin --classic
+
+sudo pip3 install neovim
+
