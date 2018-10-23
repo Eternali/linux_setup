@@ -27,6 +27,7 @@ sudo apt install -y
     zsh \
     tmux \
     i3 \
+    rofi
     nitrogen \
     apt-transport-https \
     whois \
