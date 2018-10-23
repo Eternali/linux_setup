@@ -17,7 +17,29 @@ mkdir -p $HOMEDIR/.config/i3
 mkdir $HOMEDIR/.config/nvim
 mkdir $HOMEDIR/.config/rofi
 
-sudo apt install -y git build-essential xclip python3-pip curl zsh tmux i3 nitrogen apt-transport-https whois rofi screenfetch default-jdk
+# general essentials and dependancies
+sudo apt install -y
+    git \
+    build-essential \
+    xclip \
+    python3-pip \
+    curl \
+    zsh \
+    tmux \
+    i3 \
+    nitrogen \
+    apt-transport-https \
+    whois \
+    screenfetch \
+    default-jdk \
+    libpth-dev \
+    libx11-dev \
+    libx11-xcb-dev \
+    libcairo2-dev \
+    libxcb-xkb-dev \
+    libxcb-xinerama0-dev \
+    libxcb-randr0-dev
+
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 sudo add-apt-repository \
    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
@@ -56,11 +78,19 @@ cd ~/Downloads
 sudo dpkg -i google-chrome-stable_current_amd64.deb
 sudo dpkg -i skypeforlinux-64.deb
 sudo apt install -f
+
+# applications
 mkdir ~/applications
 cd ~/applications
 git clone https://github.com/flutter/flutter.git -b beta
 . ~/.zshrc
 flutter doctor
+#git clone https://github.com/emgram769/lighthouse
+#cd lighthouse
+#make
+#sudo make install
+#lighthouse-install
+#chmod +x ~/.config/lighthouse/cmd*
 mkdir ~/FlutterProjects
 cd ~/FlutterProjects
 git clone https://github.com/eternali/watoplan_flut -b dev
@@ -87,5 +117,9 @@ sudo apt update && sudo apt install signal-desktop
 sudo apt install snapd snapd-xdg-open
 sudo snap install kotlin --classic
 
+# pip
 sudo pip3 install neovim
 
+# lighthouse
+sudo apt install libpth-dev libx11-dev libx11-xcb-dev libcairo2-dev libxcb-xkb-dev libxcb-xinerama0-dev libxcb-randr0-dev
+git clone 
