@@ -33,6 +33,7 @@ sudo apt install -y
     whois \
     screenfetch \
     default-jdk \
+    gradle \
     libpth-dev \
     libx11-dev \
     libx11-xcb-dev \
