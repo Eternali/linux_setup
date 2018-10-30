@@ -7,16 +7,25 @@ import subprocess as sp
 from sys import argv
 
 
-
 class Config:
 
-    def __init__(self, debug=False, dry_run=False, user='', homedir='', curdir='', silent=False):
+    def __init__(
+        self,
+        debug=False,
+        dry_run=False,
+        user='',
+        homedir='',
+        curdir='',
+        silent=False,
+        fail_hard=False
+    ):
         self.debug = debug
         self.dry_run = dry_run
         self.user = user
         self.homedir = homedir
         self.curdir = curdir
         self.silent = silent
+        self.fail_hard = fail_hard
 
     def pretty_print(self):
         if not self.silent:
@@ -27,6 +36,7 @@ class Config:
             print(f'[##] User:             {self.user}')
             print(f'[##] Home Directory:   {self.homedir}')
             print(f'[##] Source Directory: {self.curdir}')
+            print(f'[##] Fail Hard:        {self.fail_hard}')
             print( '-----------------------------------\n')
 
     def log(self, msg, level=0):
@@ -74,7 +84,12 @@ class Installable:
         elif self.config.dry_run:
             self.config.log('$ ' + cmd)
             return
-        return sh_cmd(cmd.split())
+        elif config.fail_hard:
+            return sh_cmd(cmd.split())
+        try:
+            return sh_cmd(cmd.split())
+        except:
+            return
 
     def install(self, sh_cmd=sp.check_call, with_deps=True):
         results = []
@@ -325,6 +340,24 @@ INSTALLABLES = {
 }
 
 
+def help():
+    print('')
+    print('./install.py [options] [installables | \'all\']')
+    print('\t [--debug, -d]   Run in debug mode with extra logging.')
+    print('\t [--dry-run, -r] Only print operations to terminal, does not actually run anything.')
+    print('\t [--silent, -s]  Do not display anything.')
+    print('\t [--user, -u]    Specify which user to run as, defaults to the current user.')
+    print('\t [--fail-hard, -f]   If specified will exit as soon as any error is encountered.')
+    print('')
+    print('\t [installables]  A space separated list of features to install.')
+    print('\t                 \'all\' will install all possible features.')
+    print('')
+    print('Example: ./install.py --debug --dry-run --user bob zsh i3 kotlin')
+    print('')
+
+    exit(0)
+
+
 def parse_args(args):
     has_arg = lambda to_find: any(a in args for a in to_find)
     def consume_args(to_consume):
@@ -335,18 +368,22 @@ def parse_args(args):
                 args.remove(consumed[-1])
         return consumed
 
+    if has_arg(['--help', '-h']):
+        help()
+
     debug = has_arg(['--debug', '-d'])
     dry_run = has_arg(['--dry-run', '-r'])
     silent = has_arg(['--silent', '-s'])
     user = consume_args(['--user', '-u'])
     user = user[0] if len(user) else None
     to_install = [arg.lower() for arg in args if not arg.startswith('-')]
+    fail_hard = has_arg(['--fail-hard', '-f'])
 
-    return debug, dry_run, silent, user, to_install
+    return debug, dry_run, silent, user, to_install, fail_hard
 
 
 def main():
-    debug, dry_run, silent, user, to_install = parse_args(argv[1:])
+    debug, dry_run, silent, user, to_install, fail_hard = parse_args(argv[1:])
 
     config = Config(
         debug=debug,
@@ -354,7 +391,8 @@ def main():
         user=user or getlogin(),
         homedir=f'/home/{user or getlogin()}',
         curdir=getcwd(),
-        silent = silent
+        silent = silent,
+        fail_hard = fail_hard
     )
 
     config.pretty_print()
