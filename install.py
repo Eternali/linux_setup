@@ -84,7 +84,7 @@ class Installable:
         elif self.config.dry_run:
             self.config.log('$ ' + cmd)
             return
-        elif config.fail_hard:
+        elif self.config.fail_hard:
             return sh_cmd(cmd.split())
         try:
             return sh_cmd(cmd.split())
