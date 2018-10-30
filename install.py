@@ -88,8 +88,8 @@ class Installable:
             return sh_cmd(cmd.split())
         try:
             return sh_cmd(cmd.split())
-        except:
-            return
+        except Exception as e:
+            return e.message
 
     def install(self, sh_cmd=sp.check_call, with_deps=True):
         results = []
