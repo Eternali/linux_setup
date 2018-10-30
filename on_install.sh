@@ -128,3 +128,4 @@ sudo pip3 install neovim
 
 sudo mv /usr/bin/dmenu /usr/bin/dmenu_bak
 sudo ln -s /usr/local/bin/dmenu /usr/bin/dmenu
+
