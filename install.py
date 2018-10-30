@@ -85,9 +85,9 @@ class Installable:
             self.config.log('$ ' + cmd)
             return
         elif self.config.fail_hard:
-            return sh_cmd(cmd.split())
+            return sh_cmd(cmd.split() if isinstance(cmd, str) else cmd)
         try:
-            return sh_cmd(cmd.split())
+            return sh_cmd(cmd.split() if isinstance(cmd, str) else cmd)
         except Exception as e:
             return e.message
 
@@ -124,8 +124,8 @@ INSTALLABLES = {
             f'rm {config.homedir}/.zshrc',
             f'rm {config.homedir}/.zsh_aliases',
             distro_install(['zsh']),
-            'sh -c "$(curl -fsSL ' +
-            'https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"',
+            ['sh -c',
+            '"$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"'],
             'git clone https://github.com/bhilburn/powerlevel9k.git ' +
             f'{config.homedir}/.oh-my-zsh/custom/themes/powerlevel9k',
             f'ln -s {config.curdir}/.zshrc {config.homedir}/.zshrc',
@@ -161,7 +161,7 @@ INSTALLABLES = {
                 'libxinerama-dev',
                 'libxft-dev'
             ], fix=True),
-            'mkdir -p ~/applications'
+            f'mkdir -p {config.homedir}/applications'
         ],
         lambda config: [
             f'rm -rf {config.homedir}/.config/i3',
@@ -173,11 +173,12 @@ INSTALLABLES = {
             f'ln -s {config.curdir}/.config/i3/startup {config.homedir}/.config/i3/startup'
             f'ln -s {config.curdir}/.config/i3blocks {config.homedir}/.config/i3blocks',
             f'ln -s {config.curdir}/.screenlayout {config.homedir}/.screenlayout',
-            'cd ~/Downloads && git clone https://github.com/guimeira/i3lock-fancy-multimonitor.git',
-            'cd ~/Downloads && cp -r i3lock-fancy-multimonitor ~/.config/i3',
-            'chmod +x ~/.config/i3/i3lock-fancy-multimonitor/lock',
-            'git clone https://github.com/sbstnc/dmenu-ee ~/applications/dmenu-ee',
-            'cd ~/applications/dmenu-ee && sudo make clean install',
+            f'cd {config.homedir}/Downloads && git clone https://github.com/guimeira/i3lock-fancy-multimonitor.git',
+            f'cd {config.homedir}/Downloads && cp -r i3lock-fancy-multimonitor ' +
+            f'{config.homedir}/.config/i3',
+            f'chmod +x {config.homedir}/.config/i3/i3lock-fancy-multimonitor/lock',
+            f'git clone https://github.com/sbstnc/dmenu-ee {config.homedir}/applications/dmenu-ee',
+            f'cd {config.homedir}/applications/dmenu-ee && sudo make clean install',
             'sudo mv /usr/bin/dmenu /usr/bin/dmenu_bak',
             'sudo ln -s /usr/local/bin/dmenu /usr/bin/dmenu'
         ]
@@ -277,21 +278,26 @@ INSTALLABLES = {
     ),
     'flutter': Installable(
         lambda config: [
-            'mkdir -p ~/applications',
-            'mkdir -p ~/FlutterProjects'
+            f'mkdir -p {config.homedir}/applications',
+            f'mkdir -p {config.homedir}/FlutterProjects'
         ],
         lambda config: [
-            'git clone https://github.com/flutter/flutter.git -b beta ~/applications/flutter',
-            '. ~/.zshrc',
+            'git clone https://github.com/flutter/flutter.git -b beta ' +
+            f'{config.homedir}/applications/flutter',
+            f'. {config.homedir}/.zshrc',
             'flutter doctor',
             'git clone https://github.com/eternali/watoplan_flut -b dev ' +
-            '~/FlutterProjects/watoplan_flut',
-            'git clone https://github.com/eternali/custom_radio ~/FlutterProjects/custom_radio',
-            'git clone https://github.com/eternali/mldemos ~/FlutterProjects/mldemos',
+            f'{config.homedir}/FlutterProjects/watoplan_flut',
+            'git clone https://github.com/eternali/custom_radio ' +
+            f'{config.homedir}/FlutterProjects/custom_radio',
+            'git clone https://github.com/eternali/mldemos ' + 
+            f'{config.homedir}/FlutterProjects/mldemos',
             'git clone https://github.com/eternali/flutter_calendar ' +
-            '~/FlutterProjects/flutter_calendar',
-            'git clone https://github.com/eternali/date_utils ~/FlutterProjects/date_utils',
-            'git clone https://github.com/eternali/tictacthrow ~/FlutterProjects/tictacthrow'
+            f'{config.homedir}/FlutterProjects/flutter_calendar',
+            'git clone https://github.com/eternali/date_utils ' +
+            f'{config.homedir}/FlutterProjects/date_utils',
+            'git clone https://github.com/eternali/tictacthrow ' +
+            f'{config.homedir}/FlutterProjects/tictacthrow'
         ]
     ),
     'debs': Installable(
@@ -299,19 +305,19 @@ INSTALLABLES = {
 
         ],
         lambda config: [
-            'cd ~/Downloads && sudo dpkg -i skypeforlinux-64.deb ' +
+            f'cd {config.homedir}/Downloads && sudo dpkg -i skypeforlinux-64.deb ' +
             'google-chrome-stable_current_amd64.deb',
             distro_install([], fix=True)
         ]
     ),
     'vue': Installable(
         lambda config: [
-            'mkdir -p ~/VueProjects'
+            f'mkdir -p {config.homedir}/VueProjects'
         ],
         lambda config: [
             'sudo npm i -g @vue/cli',
             'git clone https://github.com/eternali/conradheidebrecht.com ' +
-            '~/VueProjects/conradheidebrecht.com'
+            f'{config.homedir}/VueProjects/conradheidebrecht.com'
         ]
     ),
     'spotify': Installable(
