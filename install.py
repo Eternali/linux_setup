@@ -74,7 +74,7 @@ class Installable:
         elif self.config.dry_run:
             self.config.log('$ ' + cmd)
             return
-        return sh_cmd(cmd)
+        return sh_cmd(cmd.split())
 
     def install(self, sh_cmd=sp.check_call, with_deps=True):
         results = []
