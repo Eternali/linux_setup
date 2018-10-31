@@ -85,9 +85,9 @@ class Installable:
             self.config.log('$ ' + cmd if isinstance(cmd, str) else ' '.join(cmd))
             return
         elif self.config.fail_hard:
-            return sh_cmd(cmd.split() if isinstance(cmd, str) else cmd)
+            return sh_cmd(' '.join(cmd) if isinstance(cmd, list) else cmd)
         try:
-            return sh_cmd(cmd.split() if isinstance(cmd, str) else cmd)
+            return sh_cmd(' '.join(cmd) if isinstance(cmd, list) else cmd)
         except Exception as e:
             return e.message
 
