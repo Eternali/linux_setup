@@ -2,9 +2,16 @@
 
 ## Copyright (C) 2018 Conrad Heidebrecht
 
+from fullcolor.colors import Color
+from fullcolor.common import CommonColors as cc
 from os import getcwd, getlogin, system
 import subprocess as sp
 from sys import argv
+
+
+COLORS = {
+    'purple': Color('885ead')
+}
 
 
 class Config:
@@ -29,6 +36,7 @@ class Config:
 
     def pretty_print(self):
         if not self.silent:
+            print(cc.GREEN.fg, end='')
             print( '\n------------------------------------')
             print( '[##] RUN CONFIGURATION:\n')
             print(f'[##] Debug:            {self.debug}')
@@ -38,11 +46,14 @@ class Config:
             print(f'[##] Source Directory: {self.curdir}')
             print(f'[##] Fail Hard:        {self.fail_hard}')
             print( '-----------------------------------\n')
+            print(cc.RT, end='')
 
     def log(self, msg, level=0):
         """Log message according to log level:
         0 = not set (everything)
         1 = debug (if debug is set)
+        2 = info (same as debug but PURPLE)
+        3 = critical (same as debug but RED)
 
         If the silent flag has been set, nothing will be logged regardless of the level
         
@@ -59,7 +70,11 @@ class Config:
         if level == 0:
             print(msg)
         elif level == 1 and self.debug:
-            print(msg)
+            print(cc.BLUE.fg + msg + cc.RT)
+        elif level == 2 and self.debug:
+            print(COLORS['purple'].fg + msg + cc.RT)
+        elif level == 3 and self.debug:
+            print(cc.RED.fg + msg + cc.RT)
 
 
 class Installable:
@@ -145,12 +160,6 @@ INSTALLABLES = {
     'i3': Installable(
         lambda config: [
             distro_install([
-                'arandr',
-                'pm-utils',
-                'xbacklight',
-                'blueman',
-                'xautolock',
-                'scratchpad',
                 'libpth-dev',
                 'libx11-dev',
                 'libx11-xcb-dev',
@@ -168,7 +177,16 @@ INSTALLABLES = {
             f'rm -rf {config.homedir}/.config/i3blocks',
             f'mkdir -p {config.homedir}/.config/i3',
             f'rm -r {config.homedir}/.screenlayout',
-            distro_install(['i3', 'i3blocks']),
+            distro_install([
+                'i3',
+                'i3blocks',
+                'arandr',
+                'pm-utils',
+                'xbacklight',
+                'blueman',
+                'xautolock',
+                'scratchpad'
+            ]),
             f'ln -s {config.curdir}/.config/i3/config {config.homedir}/.config/i3/config',
             f'ln -s {config.curdir}/.config/i3/startup {config.homedir}/.config/i3/startup'
             f'ln -s {config.curdir}/.config/i3blocks {config.homedir}/.config/i3blocks',
@@ -409,11 +427,11 @@ def main():
         if name not in INSTALLABLES.keys():
             continue
         installable = INSTALLABLES[name]
-        config.log(f'Generating installation commands for {name}.', 1)
+        config.log(f'Generating installation commands for {name}.', 2)
         installable.generate(config)
-        config.log(f'Installing {name}.', 1)
+        config.log(f'Installing {name}.', 2)
         installable.install()
-        config.log(f'Finished installing {name}.' + '\n', 1)
+        config.log(f'Finished installing {name}.' + '\n', 2)
 
 
 if __name__ == '__main__':
