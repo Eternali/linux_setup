@@ -82,7 +82,7 @@ class Installable:
         if callable(cmd):
             return cmd(self.config)
         elif self.config.dry_run:
-            self.config.log('$ ' + cmd)
+            self.config.log('$ ' + cmd if isinstance(cmd, str) else ' '.join(cmd))
             return
         elif self.config.fail_hard:
             return sh_cmd(cmd.split() if isinstance(cmd, str) else cmd)
@@ -110,7 +110,7 @@ def distro_install(packs, distro='debian', fix=False, update=False):
         if packs:
             cmd += f"{' && ' if cmd else ''}sudo apt install -y {' '.join(packs)}"
         if fix:
-            cmd += "{' && ' if cmd else ''}sudo apt install -f -y"
+            cmd += f"{' && ' if cmd else ''}sudo apt install -f -y"
     
     return cmd
 
