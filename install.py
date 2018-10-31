@@ -2,7 +2,7 @@
 
 ## Copyright (C) 2018 Conrad Heidebrecht
 
-from os import getcwd, getlogin
+from os import getcwd, getlogin, system
 import subprocess as sp
 from sys import argv
 
@@ -91,7 +91,7 @@ class Installable:
         except Exception as e:
             return e.message
 
-    def install(self, sh_cmd=sp.check_call, with_deps=True):
+    def install(self, sh_cmd=system, with_deps=True):
         results = []
         if with_deps:
             for dep in self.dependancies:
