@@ -117,13 +117,13 @@ class Installable:
         return results
 
 
-def distro_install(packs, distro='debian', fix=False, update=False):
+def distro_install(packs='', distro='debian', fix=False, update=False):
     cmd = ''
     if distro == 'debian':
         if update:
             cmd += 'sudo apt update'
         if packs:
-            cmd += f"{' && ' if cmd else ''}sudo apt install -y {' '.join(packs)}"
+            cmd += f"{' && ' if cmd else ''}sudo apt install -y {packs if isinstance(packs, str) else ' '.join(packs)}"
         if fix:
             cmd += f"{' && ' if cmd else ''}sudo apt install -f -y"
     
@@ -138,7 +138,7 @@ INSTALLABLES = {
         lambda config: [
             f'rm {config.homedir}/.zshrc',
             f'rm {config.homedir}/.zsh_aliases',
-            distro_install(['zsh']),
+            distro_install('zsh'),
             ['sh -c',
             '"$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"'],
             'git clone https://github.com/bhilburn/powerlevel9k.git ' +
@@ -153,7 +153,7 @@ INSTALLABLES = {
         ],
         lambda config: [
             f'rm {config.homedir}/.tmux.conf',
-            distro_install(['tmux']),
+            distro_install('tmux'),
             f'ln -s {config.curdir}/.tmux.conf {config.homedir}/.tmux.conf'
         ]
     ),
@@ -203,7 +203,7 @@ INSTALLABLES = {
     ),
     'nvim': Installable(
         lambda config: [
-            distro_install(['python3-pip'])
+            distro_install('python3-pip')
         ],
         lambda config: [
             distro_install(['neovim']),
@@ -220,7 +220,7 @@ INSTALLABLES = {
         ],
         lambda config: [
             'curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -',
-            distro_install(['nodejs']),
+            distro_install('nodejs'),
             'sudo npm i -g standard eslint'
         ]
     ),
@@ -232,7 +232,7 @@ INSTALLABLES = {
             'curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -',
             'echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee ' +
             '/etc/apt/sources.list.d/yarn.list',
-            distro_install(['yarn'])
+            distro_install('yarn')
         ]
     ),
     'kotlin': Installable(
@@ -253,7 +253,7 @@ INSTALLABLES = {
             '| sudo apt-key add -',
             'sudo add-apt-repository "deb [arch=amd64] ' +
             'https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"',
-            distro_install(['docker-ce'], update=True),
+            distro_install('docker-ce', update=True),
             'sudo groupadd docker',
             f'sudo usermod -aG docker {config.user}'
         ]
@@ -291,7 +291,7 @@ INSTALLABLES = {
         lambda config: [
             f'mkdir -p {config.homedir}/.fonts',
             f'cp {config.curdir}/.fonts/* {config.homedir}/.fonts/',
-            distro_install(['fonts-firacode'])
+            distro_install('fonts-firacode')
         ]
     ),
     'flutter': Installable(
@@ -325,7 +325,7 @@ INSTALLABLES = {
         lambda config: [
             f'cd {config.homedir}/Downloads && sudo dpkg -i skypeforlinux-64.deb ' +
             'google-chrome-stable_current_amd64.deb',
-            distro_install([], fix=True)
+            distro_install(fix=True)
         ]
     ),
     'vue': Installable(
@@ -347,7 +347,7 @@ INSTALLABLES = {
             '931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90',
             'echo deb http://repository.spotify.com stable non-free | sudo tee ' +
             '/etc/apt/sources.list.d/spotify.list',
-            distro_install(['spotify-client'])
+            distro_install('spotify-client')
         ]
     ),
     'signal': Installable(
@@ -358,7 +358,18 @@ INSTALLABLES = {
             'curl -s https://updates.signal.org/desktop/apt/keys.asc | sudo apt-key add -',
             'echo "deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main" ' +
             '| sudo tee -a /etc/apt/sources.list.d/signal-xenial.list',
-            distro_install(['signal-desktop'], update=True)
+            distro_install('signal-desktop', update=True)
+        ]
+    ),
+    'brave': Installable(
+        lambda config: [
+
+        ],
+        lambda config: [
+            'curl https://brave-browser-apt-release.s3.brave.com/brave-core.asc | sudo apt-key add -',
+            'echo "deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ `lsb_release -sc` ' +
+            'main" | sudo tee -a /etc/apt/sources.list.d/brave-browser-release-`lsb_release -sc`.list',
+            distro_install('brave-browser', update=True)
         ]
     )
 }
