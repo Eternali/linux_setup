@@ -270,7 +270,8 @@ INSTALLABLES = {
                 'nitrogen',
                 'apt-transport-https',
                 'whois',
-                'screenfetch'
+                'screenfetch',
+                'pinta'
             ]),
             'git config --global user.email "conrad.heidebrecht@gmail.com"',
             'git config --global user.name "Conrad"'
