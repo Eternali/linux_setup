@@ -372,6 +372,24 @@ INSTALLABLES = {
             'main" | sudo tee -a /etc/apt/sources.list.d/brave-browser-release-`lsb_release -sc`.list',
             distro_install('brave-browser', update=True)
         ]
+    ),
+    'pgp': Installable(
+        lambda config: [
+
+        ],
+        lambda config: [
+            distro_install(['gpa', 'gnupg2'])
+        ]
+    ),
+    'keybase': Installable(
+        lambda config: [
+
+        ],
+        lambda config: [
+            f'cd {config.homedir}/Downloads && curl -O https://prerelease.keybase.io/keybase_amd64.deb',
+	    f'sudo dpkg -i {config.homedir}/Downloads/keybase_amd64.deb',
+	    distro_install(fix=True)
+	]
     )
 }
 
