@@ -298,7 +298,8 @@ INSTALLABLES = {
     'flutter': Installable(
         lambda config: [
             f'mkdir -p {config.homedir}/applications',
-            f'mkdir -p {config.homedir}/FlutterProjects'
+            f'mkdir -p {config.homedir}/FlutterProjects',
+            distro_install('lib32stdc++6')
         ],
         lambda config: [
             'git clone https://github.com/flutter/flutter.git -b beta ' +
