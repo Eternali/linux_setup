@@ -271,7 +271,8 @@ INSTALLABLES = {
                 'apt-transport-https',
                 'whois',
                 'screenfetch',
-                'pinta'
+                'pinta',
+                'libkrb5-dev'
             ]),
             'git config --global user.email "conrad.heidebrecht@gmail.com"',
             'git config --global user.name "Conrad"'
