@@ -172,7 +172,7 @@ INSTALLABLES = {
                 'libxinerama-dev',
                 'libxft-dev'
             ], fix=True),
-            f'mkdir -p {config.homedir}/applications'
+            # f'mkdir -p {config.homedir}/applications'
         ],
         lambda config: [
             f'rm -rf {config.homedir}/.config/i3',
@@ -186,8 +186,7 @@ INSTALLABLES = {
                 'pm-utils',
                 'xbacklight',
                 'blueman',
-                'xautolock',
-                'scratchpad'
+                'xautolock'
             ]),
             f'ln -s {config.curdir}/.config/i3/config {config.homedir}/.config/i3/config',
             f'ln -s {config.curdir}/.config/i3/startup {config.homedir}/.config/i3/startup'
