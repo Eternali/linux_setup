@@ -214,6 +214,8 @@ plugins=(
   git
 )
 
+[[ -s $HOME/.nvm/nvm.sh ]] && . $HOME/.nvm/nvm.sh  # This loads NVM
+
 source $ZSH/oh-my-zsh.sh
 
 if [ -f ~/.zsh_aliases ]; then

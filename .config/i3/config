@@ -9,6 +9,7 @@
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
+# windows key
 set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
@@ -173,7 +174,7 @@ bindsym $mod+Ctrl+Left resize grow width 1 px or 1 ppt
 bindsym XF86MonBrightnessUp exec xbacklight -inc 5 # increase screen brightness
 bindsym XF86MonBrightnessDown exec xbacklight -dec 5 # decrease screen brightness
 
-# ibindsym XF86MonBrightnessUp exec brightness+
+# bindsym XF86MonBrightnessUp exec brightness+
 # bindsym XF86MonBrightnessDown exec brightness-
 
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
