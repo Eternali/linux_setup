@@ -24,7 +24,8 @@ class Config:
         homedir='',
         curdir='',
         silent=False,
-        fail_hard=False
+        fail_hard=False,
+        os_name='cosmic'
     ):
         self.debug = debug
         self.dry_run = dry_run
@@ -33,10 +34,11 @@ class Config:
         self.curdir = curdir
         self.silent = silent
         self.fail_hard = fail_hard
+        self.os_name = os_name
 
     def pretty_print(self):
         if not self.silent:
-            print(cc.GREEN.fg, end='')
+            print(cc.GREEN.fg)
             print( '\n------------------------------------')
             print( '[##] RUN CONFIGURATION:\n')
             print(f'[##] Debug:            {self.debug}')
@@ -46,7 +48,7 @@ class Config:
             print(f'[##] Source Directory: {self.curdir}')
             print(f'[##] Fail Hard:        {self.fail_hard}')
             print( '-----------------------------------\n')
-            print(cc.RT, end='')
+            print(cc.RT)
 
     def log(self, msg, level=0):
         """Log message according to log level:
@@ -170,7 +172,7 @@ INSTALLABLES = {
                 'libxinerama-dev',
                 'libxft-dev'
             ], fix=True),
-            f'mkdir -p {config.homedir}/applications'
+            # f'mkdir -p {config.homedir}/applications'
         ],
         lambda config: [
             f'rm -rf {config.homedir}/.config/i3',
@@ -184,8 +186,7 @@ INSTALLABLES = {
                 'pm-utils',
                 'xbacklight',
                 'blueman',
-                'xautolock',
-                'scratchpad'
+                'xautolock'
             ]),
             f'ln -s {config.curdir}/.config/i3/config {config.homedir}/.config/i3/config',
             f'ln -s {config.curdir}/.config/i3/startup {config.homedir}/.config/i3/startup'
@@ -272,7 +273,8 @@ INSTALLABLES = {
                 'whois',
                 'screenfetch',
                 'pinta',
-                'libkrb5-dev'
+                'libkrb5-dev',
+                'audacity'
             ]),
             'git config --global user.email "conrad.heidebrecht@gmail.com"',
             'git config --global user.name "Conrad"'
@@ -392,6 +394,15 @@ INSTALLABLES = {
 	    f'sudo dpkg -i {config.homedir}/Downloads/keybase_amd64.deb',
 	    distro_install(fix=True)
 	]
+    ),
+    'tuxboot': Installable(
+        lambda config: [
+        
+        ],
+        lambda config: [
+            'sudo apt-add-repository ppa:thomas.tsai/ubuntu-tuxboot',
+            distro_install('tuxboot', update=True)
+        ]
     )
 }
 
