@@ -294,6 +294,7 @@ INSTALLABLES = {
         ],
         lambda config: [
             f'mkdir -p {config.homedir}/.fonts',
+            f'mkdir -p {config.homedir}/.config/fontconfig/conf.d',
             f'cp {config.curdir}/.fonts/* {config.homedir}/.fonts/',
             f'fc-cache -fv {config.homedir}/.fonts',
             f'cp {config.curdir}/.config/fontconfig/conf.d/10-symbols.conf {config.homedir}/.config/fontconfig/conf.d/10-symbols.conf',
