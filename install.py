@@ -189,7 +189,9 @@ INSTALLABLES = {
                 'xautolock'
             ]),
             f'ln -s {config.curdir}/.config/i3/config {config.homedir}/.config/i3/config',
-            f'ln -s {config.curdir}/.config/i3/startup {config.homedir}/.config/i3/startup'
+            f'ln -s {config.curdir}/.config/i3/startup {config.homedir}/.config/i3/startup',
+            f'ln -s {config.curdir}/.config/i3/get_power.py {config.homedir}/.config/i3/get_power.py',
+            f'ln -s {config.curdir}/.config/i3/touchpad.py {config.homedir}/.config/i3/touchpad.py',
             f'ln -s {config.curdir}/.config/i3blocks {config.homedir}/.config/i3blocks',
             f'ln -s {config.curdir}/.screenlayout {config.homedir}/.screenlayout',
             f'cd {config.homedir}/Downloads && git clone https://github.com/guimeira/i3lock-fancy-multimonitor.git',
