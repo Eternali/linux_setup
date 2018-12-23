@@ -10,9 +10,9 @@ source ~/.fonts/*.sh
 XDG_USER_CONFIG_DIR=/home/eternali/.config
 
 # Path to flutter sdk
-export PATH=/home/eternali/applications/flutter/bin:$PATH
+export PATH=/home/eternali/applications/flutter/flutter/bin:$PATH
 # Path to dart sdk
-export PATH=/home/eternali/applications/flutter/bin/cache/dart-sdk/bin:$PATH
+export PATH=/home/eternali/applications/flutter/flutter/bin/cache/dart-sdk/bin:$PATH
 # Path to kotlin compiler
 export PATH=/opt/kotlin-compiler/kotlinc/bin:$PATH
 # Path to chromium depot_tools
