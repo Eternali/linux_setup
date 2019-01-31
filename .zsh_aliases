@@ -25,12 +25,8 @@ fr() {
     find $1 -type f -exec sed -i 's/'$2'/'$3'/g' {} \;
 }
 
-brightness() {
-    current=`cat /sys/class/backlight/intel_backlight/brightness`
-    sudo echo $((current+$1)) > /sys/class/backlight/intel_backlight/brightness
-}
-
 tmute() {
     amixer -c 0 sset $1 toggle
 }
+
 

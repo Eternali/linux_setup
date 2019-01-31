@@ -41,6 +41,14 @@ instance=Master
 interval=once
 signal=10
 
+# Screen brightness indicator
+#
+#
+[brightness]
+label=BRIGHT
+interval=5
+min_width=BRIGHT: 100%
+
 # Memory usage
 #
 # The type defaults to "mem" if the instance is not specified.

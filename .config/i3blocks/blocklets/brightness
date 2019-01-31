@@ -1,0 +1,1 @@
+echo "`/home/eternali/applications/brightnessctrl/brightness.py get`%"

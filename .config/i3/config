@@ -161,9 +161,9 @@ bar {
 # bindsym XF86AudioLowerVolume exec --no-startup-id pactl -- set-sink-volume 0 -5% #decrease sound volume
 # bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
 
-bindsym XF86AudioRaiseVolume exec amixer set -c 0 Master unmute && amixer sset -c 0 Master 5%+
-bindsym XF86AudioLowerVolume exec amixer set -c 0 Master unmute && amixer sset -c 0 Master 5%-
-bindsym XF86AudioMute exec amixer -c 0 sset Master toggle
+bindsym XF86AudioRaiseVolume exec amixer set -c 1 Master unmute && amixer sset -c 1 Master 5%+
+bindsym XF86AudioLowerVolume exec amixer set -c 1 Master unmute && amixer sset -c 1 Master 5%-
+bindsym XF86AudioMute exec amixer -c 1 sset Master toggle
 
 bindsym $mod+Ctrl+Right resize shrink width 1 px or 1 ppt
 bindsym $mod+Ctrl+Up resize grow height 1 px or 1 ppt
@@ -171,11 +171,11 @@ bindsym $mod+Ctrl+Down resize shrink height 1 px or 1 ppt
 bindsym $mod+Ctrl+Left resize grow width 1 px or 1 ppt
 
 # Sreen brightness controls
-bindsym XF86MonBrightnessUp exec xbacklight -inc 5 # increase screen brightness
-bindsym XF86MonBrightnessDown exec xbacklight -dec 5 # decrease screen brightness
+# bindsym XF86MonBrightnessUp exec xbacklight -inc 5 # increase screen brightness
+# bindsym XF86MonBrightnessDown exec xbacklight -dec 5 # decrease screen brightness
 
-# bindsym XF86MonBrightnessUp exec brightness+
-# bindsym XF86MonBrightnessDown exec brightness-
+bindsym XF86MonBrightnessUp exec brightness+
+bindsym XF86MonBrightnessDown exec brightness-
 
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
@@ -193,6 +193,7 @@ mode "$mode_system" {
 bindsym $mod+Pause mode "$mode_system"
 
 bindsym $mod+Ctrl+l exec /home/eternali/.config/i3/i3lock-fancy-multimonitor/lock -b=0x4
+bindsym $mod+Ctrl+s exec sudo pm-suspend
 
 #----window coloring----#
 # class                 border  backgr. text    indicator child_border
