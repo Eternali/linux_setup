@@ -29,4 +29,14 @@ tmute() {
     amixer -c 0 sset $1 toggle
 }
 
+docker-clear() {
+    # containers
+    docker rm -f $(docker ps -a -q)
+    # images
+    docker rmi -f $(docker images -a -q)
+    # volumes
+    docker volume rm $(docker volume ls -q)
+    # networks
+    docker network rm $(docker network ls | tail -n+2 | awk '{if($2 !~ /bridge|none|host/){ print $1 }}')
+}
 
