@@ -17,6 +17,8 @@ export PATH=/home/eternali/applications/flutter/flutter/bin/cache/dart-sdk/bin:$
 export PATH=/opt/kotlin-compiler/kotlinc/bin:$PATH
 # Path to chromium depot_tools
 export PATH=/opt/depot_tools:$PATH
+# Path to gn
+export PATH=/home/eternali/applications/gn:$PATH
 
 # open JDK
 export PATH=/usr/lib/jvm/java-8-openjdk/bin:$PATH

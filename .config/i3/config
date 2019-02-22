@@ -209,6 +209,10 @@ client.background       #ffffff
 bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
 
+#----custom window behaviour----#
+
+for_window [title="Flutter"] floating enable, resize shrink width 10000px, resize grow width 350px, resize shrink height 10000px, resize grow height 720px, move absolute position 1460px 180px
+
 #----start on i3 initialization----#
 
 # i3 lock fancy and xautolock for screen locking

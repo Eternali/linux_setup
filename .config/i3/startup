@@ -1,5 +1,5 @@
 #!/bin/sh
 
-~/.screenlayout/equibit06.sh
+# ~/.screenlayout/equibit06.sh
 nitrogen --set-scaled --random /home/eternali/Pictures/backgrounds
-./touchpad.py
+~/.config/i3/touchpad.py
