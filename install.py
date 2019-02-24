@@ -18,6 +18,7 @@ class Config:
 
     def __init__(
         self,
+        uninstall=False,
         debug=False,
         dry_run=False,
         user='',
@@ -27,6 +28,7 @@ class Config:
         fail_hard=False,
         os_name='cosmic'
     ):
+        self.uninstall = uninstall
         self.debug = debug
         self.dry_run = dry_run
         self.user = user
@@ -41,6 +43,7 @@ class Config:
             print(cc.GREEN.fg)
             print( '\n------------------------------------')
             print( '[##] RUN CONFIGURATION:\n')
+            print(f'[##] Uninstall:        {self.uninstall}')
             print(f'[##] Debug:            {self.debug}')
             print(f'[##] Dry run:          {self.dry_run}')
             print(f'[##] User:             {self.user}')
@@ -81,11 +84,13 @@ class Config:
 
 class Installable:
 
-    def __init__(self, dependancies, installs):
+    def __init__(self, dependancies, installs, uninstalls=[]):
         self.gen_dependancies = dependancies if callable(dependancies) else None
         self.dependancies = [] if callable(dependancies) else dependancies
         self.gen_installs = installs if callable(installs) else None
         self.installs = [] if callable(installs) else installs
+        self.gen_uninstalls = uninstalls if callable(uninstalls) else None
+        self.uninstalls = [] if callable(uninstalls) else uninstalls
         self.config = None
 
     def generate(self, config):
@@ -94,6 +99,8 @@ class Installable:
             self.dependancies = self.gen_dependancies(config)
         if self.gen_installs:
             self.installs = self.gen_installs(config)
+        if self.gen_uninstalls:
+            self.uninstalls = self.gen_uninstalls(config)
 
     def _call_cmd(self, cmd, sh_cmd):
         if callable(cmd):
@@ -108,6 +115,11 @@ class Installable:
         except Exception as e:
             return e.message
 
+    def run(self, sh_cmd=system, with_deps=True):
+        if self.config.uninstall:
+            return self.uninstall(sh_cmd=sh_cmd)
+        return self.install(sh_cmd=sh_cmd, with_deps=with_deps)
+
     def install(self, sh_cmd=system, with_deps=True):
         results = []
         if with_deps:
@@ -117,6 +129,9 @@ class Installable:
             results.append(self._call_cmd(inst, sh_cmd))
         
         return results
+    
+    def uninstall(self, sh_cmd=system):
+        return [ self._call_cmd(uninst, sh_cmd) for uninst in self.uninstalls ]
 
 
 def distro_install(packs='', distro='debian', fix=False, update=False):
@@ -424,6 +439,7 @@ INSTALLABLES = {
 def help():
     print('')
     print('./install.py [options] [installables | \'all\']')
+    print('\t UNINSTALL       Run in uninstall mode.')
     print('\t [--debug, -d]   Run in debug mode with extra logging.')
     print('\t [--dry-run, -r] Only print operations to terminal, does not actually run anything.')
     print('\t [--silent, -s]  Do not display anything.')
@@ -452,6 +468,7 @@ def parse_args(args):
     if has_arg(['--help', '-h']):
         help()
 
+    uninstall = has_arg(['UNINSTALL'])
     debug = has_arg(['--debug', '-d'])
     dry_run = has_arg(['--dry-run', '-r'])
     silent = has_arg(['--silent', '-s'])
@@ -460,13 +477,14 @@ def parse_args(args):
     to_install = [arg.lower() for arg in args if not arg.startswith('-')]
     fail_hard = has_arg(['--fail-hard', '-f'])
 
-    return debug, dry_run, silent, user, to_install, fail_hard
+    return uninstall, debug, dry_run, silent, user, to_install, fail_hard
 
 
 def main():
-    debug, dry_run, silent, user, to_install, fail_hard = parse_args(argv[1:])
+    uninstall, debug, dry_run, silent, user, to_install, fail_hard = parse_args(argv[1:])
 
     config = Config(
+        uninstall=uninstall,
         debug=debug,
         dry_run=dry_run,
         user=user or getlogin(),
@@ -486,8 +504,8 @@ def main():
         installable = INSTALLABLES[name]
         config.log(f'Generating installation commands for {name}.', 2)
         installable.generate(config)
-        config.log(f'Installing {name}.', 2)
-        installable.install()
+        config.log(f'Running {name}.', 2)
+        installable.run()
         config.log(f'Finished installing {name}.' + '\n', 2)
 
 
