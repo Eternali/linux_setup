@@ -279,7 +279,8 @@ INSTALLABLES = {
                 'audacity'
             ]),
             'git config --global user.email "conrad.heidebrecht@gmail.com"',
-            'git config --global user.name "Conrad"'
+            'git config --global user.name "Conrad"',
+            'sudo pip3 install inotify'
         ]
     ),
     'typescript': Installable(
@@ -407,6 +408,14 @@ INSTALLABLES = {
         lambda config: [
             'sudo apt-add-repository ppa:thomas.tsai/ubuntu-tuxboot',
             distro_install('tuxboot', update=True)
+        ]
+    ),
+    'scripts': Installable(
+        lambda config: [
+
+        ],
+        lambda config: [
+            f'sudo ln -s {config.curdir}/scripts/fswatcher.py /usr/bin/fswatcher'
         ]
     )
 }
