@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 import inotify.adapters
-from os import system
+from subprocess import Popen
 from sys import argv
 from threading import Thread
 
@@ -18,21 +18,23 @@ def usage():
     exit(0)
 
 
-def startWatcher(path, cmd):
+def start_watcher(proc, path, cmd):
     print(f'Watching {path} and running "{cmd}" on change.')
     watcher = inotify.adapters.InotifyTree(path)
 
     for event in watcher.event_gen(yield_nones=False):
         if 'IN_CLOSE_WRITE' in event[1]:
-            system(cmd)
+            proc.terminate()
+            proc = Popen([cmd], shell=True)
 
 
-def manualReload(cmd):
+def manual_reload(proc, cmd):
     print('[**] Press ENTER to reload.')
     while True:
         input('')
         print('[!!] Reloading...')
-        system(cmd)
+        proc.terminate()
+        proc = Popen([cmd], shell=True)
 
 
 def main():
@@ -41,14 +43,15 @@ def main():
         usage()
     cmd = ' '.join(cmd)
 
-    watcherThread = None
+    watcher_thread = None
+    running_proc = None
     try:
-        system(cmd)
+        running_proc = Popen([cmd], shell=True)
         if auto:
-            watcherThread = Thread(target=startWatcher, args=(path, cmd))
-            watcherThread.daemon = True
-            watcherThread.start()
-        manualReload(cmd)
+            watcher_thread = Thread(target=start_watcher, args=(running_proc, path, cmd))
+            watcher_thread.daemon = True
+            watcher_thread.start()
+        manual_reload(running_proc, cmd)
     except KeyboardInterrupt:
         print('[!!] Exiting.')
         exit(0)
