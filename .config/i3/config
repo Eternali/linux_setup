@@ -211,7 +211,7 @@ bindsym $mod+minus scratchpad show
 
 #----custom window behaviour----#
 
-for_window [title="Flutter"] floating enable, resize shrink width 10000px, resize grow width 350px, resize shrink height 10000px, resize grow height 720px, move absolute position 1460px 180px
+for_window [instance="Flutter"] floating enable, resize shrink width 10000px, resize grow width 350px, resize shrink height 10000px, resize grow height 720px, move absolute position 1460px 180px
 
 #----start on i3 initialization----#
 
