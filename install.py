@@ -430,7 +430,8 @@ INSTALLABLES = {
 
         ],
         lambda config: [
-            f'sudo ln -s {config.curdir}/scripts/fswatcher.py /usr/bin/fswatcher'
+            f'sudo ln -s {config.curdir}/scripts/fswatcher.py /usr/bin/fswatcher',
+            f'sudo ln -s {config.curdir}/scripts/i3-window-criteria.sh /usr/bin/i3-window-criteria'
         ]
     )
 }
