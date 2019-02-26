@@ -19,7 +19,24 @@ def usage():
     exit(0)
 
 
+def spawn_proc(cmd):
+    cmds = cmd.replace('&&', ';').split(';')
+    for i in range(len(cmds)-1):
+        p = Popen(shlex.split(cmds[i]))
+        wait_proc(p)
+    return Popen(shlex.split(cmds[-1]))
+
+
+def wait_proc(p):
+    return p.communicate()
+
+
+def end_proc(p):
+    p.kill()
+
+
 proc = None
+
 
 def start_watcher(path, cmd):
     global proc
@@ -28,8 +45,8 @@ def start_watcher(path, cmd):
 
     for event in watcher.event_gen(yield_nones=False):
         if 'IN_CLOSE_WRITE' in event[1]:
-            proc.kill()
-            proc = Popen(shlex.split(cmd))
+            end_proc(proc)
+            proc = spawn_proc(cmd)
 
 
 def manual_reload(cmd):
@@ -38,8 +55,8 @@ def manual_reload(cmd):
     while True:
         input('')
         print('[!!] Reloading...')
-        proc.kill()
-        proc = Popen(shlex.split(cmd))
+        end_proc(proc)
+        proc = spawn_proc(cmd)
 
 
 def main():
@@ -51,7 +68,7 @@ def main():
 
     watcher_thread = None
     try:
-        proc = Popen(shlex.split(cmd))
+        proc = spawn_proc(cmd)
         if auto:
             watcher_thread = Thread(target=start_watcher, args=(path, cmd))
             watcher_thread.daemon = True
