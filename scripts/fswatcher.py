@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 
 import inotify.adapters
-from subprocess import Popen
+import shlex
+from subprocess import PIPE, Popen
 from sys import argv
 from threading import Thread
 
@@ -18,40 +19,44 @@ def usage():
     exit(0)
 
 
-def start_watcher(proc, path, cmd):
+proc = None
+
+def start_watcher(path, cmd):
+    global proc
     print(f'Watching {path} and running "{cmd}" on change.')
     watcher = inotify.adapters.InotifyTree(path)
 
     for event in watcher.event_gen(yield_nones=False):
         if 'IN_CLOSE_WRITE' in event[1]:
-            proc.terminate()
-            proc = Popen([cmd], shell=True)
+            proc.kill()
+            proc = Popen(shlex.split(cmd))
 
 
-def manual_reload(proc, cmd):
+def manual_reload(cmd):
+    global proc
     print('[**] Press ENTER to reload.')
     while True:
         input('')
         print('[!!] Reloading...')
-        proc.terminate()
-        proc = Popen([cmd], shell=True)
+        proc.kill()
+        proc = Popen(shlex.split(cmd))
 
 
 def main():
+    global proc
     [_, *cmd], [auto], [path] = parse_args(argv, flags=['-a'], named=['-p'])
     if cmd[0] in ['-h', '--help']:
         usage()
     cmd = ' '.join(cmd)
 
     watcher_thread = None
-    running_proc = None
     try:
-        running_proc = Popen([cmd], shell=True)
+        proc = Popen(shlex.split(cmd))
         if auto:
-            watcher_thread = Thread(target=start_watcher, args=(running_proc, path, cmd))
+            watcher_thread = Thread(target=start_watcher, args=(path, cmd))
             watcher_thread.daemon = True
             watcher_thread.start()
-        manual_reload(running_proc, cmd)
+        manual_reload(cmd)
     except KeyboardInterrupt:
         print('[!!] Exiting.')
         exit(0)
