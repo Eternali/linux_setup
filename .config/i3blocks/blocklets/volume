@@ -67,4 +67,5 @@ case $BLOCK_BUTTON in
   5) amixer -q -D $MIXER sset $SCONTROL $(capability) ${STEP}- unmute ;; # scroll down, decrease
 esac
 
-volume | format
+# volume | format
+awk -F"[][]" '/dB/ { print $2 }' <(amixer sget Master -c 1)
