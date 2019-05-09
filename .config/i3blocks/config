@@ -98,7 +98,7 @@ interval=5
 # see the script for details.
 [cpu_usage]
 label=CPU
-interval=10
+interval=5
 min_width=CPU: 100.00%
 #separator=false
 
@@ -117,7 +117,7 @@ interval=30
 # Date Time
 #
 [time]
-command=date '+%Y-%m-%d %a %H:%M:%S'
+command=date '+%Y-%m-%d %a %I:%M:%S %P'
 interval=5
 
 # [calendar]
