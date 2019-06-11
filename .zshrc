@@ -13,6 +13,8 @@ XDG_USER_CONFIG_DIR=/home/eternali/.config
 export PATH=/home/eternali/applications/flutter/flutter/bin:$PATH
 # Path to dart sdk
 export PATH=/home/eternali/applications/flutter/flutter/bin/cache/dart-sdk/bin:$PATH
+# Path to Pub executables
+export PATH=$HOME/.pub-cache/bin:$PATH
 # Path to kotlin compiler
 export PATH=/opt/kotlin-compiler/kotlinc/bin:$PATH
 # Path to chromium depot_tools

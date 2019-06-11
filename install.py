@@ -433,7 +433,18 @@ INSTALLABLES = {
             f'sudo ln -s {config.curdir}/scripts/fswatcher.py /usr/bin/fswatcher',
             f'sudo ln -s {config.curdir}/scripts/i3-window-criteria.sh /usr/bin/i3-window-criteria'
         ]
-    )
+    ),
+    'dunst': Installable(
+        lambda config: [
+            'sudo apt install libdbus-1-dev libx11-dev libxinerama-dev libxrandr-dev libxss-dev ' +
+            'libglib2.0-dev libpango1.0-dev libgtk2.0-dev libxdg-basedir-dev',
+            f'rm -rf {config.homedir}/.config/dunst',
+        ],
+        lambda config: [
+            f'cd {config.homedir}/Downloads && git clone https://github.com/dunst-project/dunst.git && cd dunst && make -j5 && sudo make install',
+            f'ln -s {config.curdir}/.config/dunst {config.homedir}/.config/dunst'
+        ]
+    ),
 }
 
 

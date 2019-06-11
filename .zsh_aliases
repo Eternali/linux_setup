@@ -1,6 +1,7 @@
 alias autoup='sudo apt update && sudo apt upgrade && sudo apt dist-upgrade && sudo apt autoremove'
 alias nvi='nvim'
 alias ko='sudo pm-suspend'
+alias t='tmux'
 
 port_forwarding() {
     ssh -p 68 -nNTR 4523:localhost:4523 conrad@abitsbrain.com &
